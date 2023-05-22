@@ -6,6 +6,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { EStage } from './config/dto/config.dto';
 import { HttpExceptionFilter } from './exception/http-exception.filter';
+import { ValidationExceptionFactory } from './exception/validation-exception-factory';
 import { ResponseInterceptor } from './interceptor/response.interceptor';
 
 async function bootstrap(): Promise<void> {
@@ -25,7 +26,7 @@ async function bootstrap(): Promise<void> {
     new ValidationPipe({
       whitelist: true,
       transform: true,
-      // exceptionFactory: ValidationExceptionFactory,
+      exceptionFactory: ValidationExceptionFactory,
     }),
   );
 
