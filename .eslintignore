@@ -1,3 +1,4 @@
 .eslintrc.js
 /src/test-entity/
 /test
+ormconfig.ts
