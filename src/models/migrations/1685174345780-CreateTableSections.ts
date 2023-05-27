@@ -2,8 +2,8 @@ import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 import { CRUDColumn } from '../constants/crud';
 
-export class CreateTableUsers1684768533688 implements MigrationInterface {
-  private TableName = 'users';
+export class CreateTableSections1685174345780 implements MigrationInterface {
+  private TableName = 'subject_sections';
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
@@ -16,42 +16,30 @@ export class CreateTableUsers1684768533688 implements MigrationInterface {
             default: 'uuid_generate_v4()',
           },
           {
-            name: 'username',
-            type: 'varchar',
-            length: '50',
-            isUnique: true,
+            name: 'subject_id',
+            type: 'uuid',
           },
           {
-            name: 'password',
+            name: 'name',
             type: 'varchar',
             length: '100',
           },
           {
-            name: 'first_name',
-            type: 'varchar',
-            length: '50',
-          },
-          {
-            name: 'last_name',
-            type: 'varchar',
-            length: '50',
-          },
-          {
-            name: 'tel',
-            type: 'varchar',
-            length: '20',
+            name: 'description',
+            type: 'text',
             isNullable: true,
           },
           {
-            name: 'role',
-            type: 'varchar',
-            length: '50',
+            name: 'owner',
+            type: 'uuid',
           },
           {
-            name: 'avatar',
-            type: 'varchar',
-            length: '200',
-            isNullable: true,
+            name: 'section_start',
+            type: 'timestamp',
+          },
+          {
+            name: 'section_end',
+            type: 'timestamp',
           },
           {
             name: 'status',
