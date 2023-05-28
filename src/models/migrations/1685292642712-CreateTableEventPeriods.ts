@@ -2,8 +2,8 @@ import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 import { CRUDColumn } from '../constants/crud';
 
-export class CreateTableSectionPeriods1685178231560 implements MigrationInterface {
-  private TableName = 'section_periods';
+export class CreateTableEventPeriods1685292642712 implements MigrationInterface {
+  private TableName = 'event_period';
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
@@ -16,28 +16,12 @@ export class CreateTableSectionPeriods1685178231560 implements MigrationInterfac
             default: 'uuid_generate_v4()',
           },
           {
-            name: 'section_subject_id',
+            name: 'event_id',
             type: 'uuid',
-          },
-          {
-            name: 'is_online',
-            type: 'boolean',
-            default: false,
-          },
-          {
-            name: 'online_url',
-            type: 'varchar',
-            isNullable: true,
-          },
-          {
-            name: 'room_id',
-            type: 'uuid',
-            isNullable: true,
           },
           {
             name: 'day_of_week',
             type: 'int',
-            length: '1',
             isNullable: true,
           },
           {
@@ -46,12 +30,9 @@ export class CreateTableSectionPeriods1685178231560 implements MigrationInterfac
             isNullable: true,
           },
           {
-            name: 'time_start',
-            type: 'time',
-          },
-          {
-            name: 'time_end',
-            type: 'time',
+            name: 'status',
+            type: 'boolean',
+            default: true,
           },
           ...CRUDColumn,
         ],

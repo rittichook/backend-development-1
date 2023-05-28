@@ -2,8 +2,8 @@ import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 import { CRUDColumn } from '../constants/crud';
 
-export class CreateTableSectionPeriods1685178231560 implements MigrationInterface {
-  private TableName = 'section_periods';
+export class CreateTableCalendars1685297330066 implements MigrationInterface {
+  private TableName = 'calendars';
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
@@ -16,42 +16,36 @@ export class CreateTableSectionPeriods1685178231560 implements MigrationInterfac
             default: 'uuid_generate_v4()',
           },
           {
-            name: 'section_subject_id',
-            type: 'uuid',
-          },
-          {
-            name: 'is_online',
-            type: 'boolean',
-            default: false,
-          },
-          {
-            name: 'online_url',
+            name: 'type',
             type: 'varchar',
-            isNullable: true,
+            length: '50',
           },
           {
-            name: 'room_id',
+            name: 'event_id',
             type: 'uuid',
             isNullable: true,
           },
           {
-            name: 'day_of_week',
-            type: 'int',
-            length: '1',
+            name: 'section_id',
+            type: 'uuid',
             isNullable: true,
           },
           {
-            name: 'date_of_month',
-            type: 'int',
-            isNullable: true,
+            name: 'owner',
+            type: 'uuid',
           },
           {
-            name: 'time_start',
-            type: 'time',
+            name: 'start_date',
+            type: 'timestamp',
           },
           {
-            name: 'time_end',
-            type: 'time',
+            name: 'end_date',
+            type: 'timestamp',
+          },
+          {
+            name: 'status',
+            type: 'boolean',
+            default: true,
           },
           ...CRUDColumn,
         ],
