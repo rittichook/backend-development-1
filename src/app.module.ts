@@ -5,6 +5,7 @@ import { database } from './config/database';
 import { environmentValidate } from './config/env.validation';
 import { AuthModule } from './services/auth/auth.module';
 import { UsersModule } from './services/users/users.module';
+import { CalendarModule } from './services/calendar/calendar.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { UsersModule } from './services/users/users.module';
     database,
     UsersModule,
     AuthModule,
+    CalendarModule,
   ],
   controllers: [],
   providers: [],

@@ -1,7 +1,7 @@
 import { Column, Entity } from 'typeorm';
 
-@Entity('users', { schema: 'public' })
-export class Users {
+@Entity('event_room', { schema: 'public' })
+export class EventRoom {
   @Column('uuid', {
     primary: true,
     name: 'id',
@@ -9,26 +9,8 @@ export class Users {
   })
   id: string;
 
-  @Column('character varying', { name: 'username', unique: true, length: 50 })
-  username: string;
-
-  @Column('character varying', { name: 'password', length: 100 })
-  password: string;
-
-  @Column('character varying', { name: 'first_name', length: 50 })
-  firstName: string;
-
-  @Column('character varying', { name: 'last_name', length: 50 })
-  lastName: string;
-
-  @Column('character varying', { name: 'tel', nullable: true, length: 20 })
-  tel: string | null;
-
-  @Column('character varying', { name: 'role', length: 50 })
-  role: string;
-
-  @Column('character varying', { name: 'avatar', nullable: true, length: 200 })
-  avatar: string | null;
+  @Column('uuid', { name: 'room_id' })
+  roomId: string;
 
   @Column('boolean', { name: 'status', default: () => 'true' })
   status: boolean;

@@ -22,7 +22,7 @@
     "migration:create": "npm run typeorm migration:create ./src/models/migrations/$npm_config_name",
     "migration:run": "npx typeorm-ts-node-commonjs migration:run -d ormconfig.ts",
     "migration:revert": "npx typeorm-ts-node-commonjs migration:revert -d ormconfig.ts",
-    "generator:entity": "typeorm-model-generator -h $npm_config_host -p 5432 -d $npm_config_db -u $npm_config_user -x $npm_config_password -e postgres -o ./entity -s public"
+    "generator:entity": "typeorm-model-generator -h database-1.cywqzmp3fvps.ap-southeast-1.rds.amazonaws.com -p 5432 -d blackcrop_app -u postgres -x rzeJq74WaaCwCu7XNv47 -e postgres -o ./entity -s public"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
@@ -75,7 +75,7 @@
     "ts-loader": "^9.2.3",
     "ts-node": "^10.0.0",
     "tsconfig-paths": "4.1.1",
-    "typeorm-model-generator": "^0.2.1",
+    "typeorm-model-generator": "^0.4.6",
     "typescript": "^4.7.4"
   },
   "jest": {

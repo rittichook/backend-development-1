@@ -1,7 +1,7 @@
 import { Column, Entity } from 'typeorm';
 
-@Entity('users', { schema: 'public' })
-export class Users {
+@Entity('subject_sections', { schema: 'public' })
+export class SubjectSections {
   @Column('uuid', {
     primary: true,
     name: 'id',
@@ -9,26 +9,23 @@ export class Users {
   })
   id: string;
 
-  @Column('character varying', { name: 'username', unique: true, length: 50 })
-  username: string;
+  @Column('uuid', { name: 'subject_id' })
+  subjectId: string;
 
-  @Column('character varying', { name: 'password', length: 100 })
-  password: string;
+  @Column('character varying', { name: 'name', length: 100 })
+  name: string;
 
-  @Column('character varying', { name: 'first_name', length: 50 })
-  firstName: string;
+  @Column('text', { name: 'description', nullable: true })
+  description: string | null;
 
-  @Column('character varying', { name: 'last_name', length: 50 })
-  lastName: string;
+  @Column('uuid', { name: 'owner' })
+  owner: string;
 
-  @Column('character varying', { name: 'tel', nullable: true, length: 20 })
-  tel: string | null;
+  @Column('timestamp without time zone', { name: 'section_start' })
+  sectionStart: Date;
 
-  @Column('character varying', { name: 'role', length: 50 })
-  role: string;
-
-  @Column('character varying', { name: 'avatar', nullable: true, length: 200 })
-  avatar: string | null;
+  @Column('timestamp without time zone', { name: 'section_end' })
+  sectionEnd: Date;
 
   @Column('boolean', { name: 'status', default: () => 'true' })
   status: boolean;
