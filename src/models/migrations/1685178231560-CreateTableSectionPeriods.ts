@@ -2,8 +2,8 @@ import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 import { CRUDColumn } from '../constants/crud';
 
-export class CreateTableUsers1684768533688 implements MigrationInterface {
-  private TableName = 'users';
+export class CreateTableSectionPeriods1685178231560 implements MigrationInterface {
+  private TableName = 'section_periods';
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
@@ -16,47 +16,36 @@ export class CreateTableUsers1684768533688 implements MigrationInterface {
             default: 'uuid_generate_v4()',
           },
           {
-            name: 'username',
-            type: 'varchar',
-            length: '50',
-            isUnique: true,
+            name: 'section_subject_id',
+            type: 'uuid',
           },
           {
-            name: 'password',
-            type: 'varchar',
-            length: '100',
-          },
-          {
-            name: 'first_name',
-            type: 'varchar',
-            length: '50',
-          },
-          {
-            name: 'last_name',
-            type: 'varchar',
-            length: '50',
-          },
-          {
-            name: 'tel',
-            type: 'varchar',
-            length: '20',
-            isNullable: true,
-          },
-          {
-            name: 'role',
-            type: 'varchar',
-            length: '50',
-          },
-          {
-            name: 'avatar',
-            type: 'varchar',
-            length: '200',
-            isNullable: true,
-          },
-          {
-            name: 'status',
+            name: 'is_online',
             type: 'boolean',
-            default: true,
+            default: false,
+          },
+          {
+            name: 'online_url',
+            type: 'varchar',
+            isNullable: true,
+          },
+          {
+            name: 'room_id',
+            type: 'uuid',
+            isNullable: true,
+          },
+          {
+            name: 'day_of_week',
+            type: 'varchar',
+            length: '10',
+          },
+          {
+            name: 'time_start',
+            type: 'time',
+          },
+          {
+            name: 'time_end',
+            type: 'time',
           },
           ...CRUDColumn,
         ],

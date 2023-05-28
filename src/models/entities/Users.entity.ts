@@ -27,21 +27,33 @@ export class Users {
   @Column('character varying', { name: 'role', length: 50 })
   role: string;
 
+  @Column('character varying', { name: 'avatar', length: 200 })
+  avatar: string | null;
+
   @Column('boolean', { name: 'status', default: () => 'true' })
   status: boolean;
 
   @Column('timestamp without time zone', {
-    name: 'createdAt',
+    name: 'created_at',
     default: () => 'now()',
   })
   createdAt: Date;
 
+  @Column('uuid', { name: 'created_by', nullable: true })
+  createdBy: string;
+
   @Column('timestamp without time zone', {
-    name: 'updatedAt',
+    name: 'updated_at',
     default: () => 'now()',
   })
   updatedAt: Date;
 
-  @Column('timestamp without time zone', { name: 'deletedAt', nullable: true })
+  @Column('uuid', { name: 'updated_by', nullable: true })
+  updatedBy: string;
+
+  @Column('timestamp without time zone', { name: 'deleted_at', nullable: true })
   deletedAt: Date | null;
+
+  @Column('uuid', { name: 'deleted_by', nullable: true })
+  deletedBy: string;
 }
