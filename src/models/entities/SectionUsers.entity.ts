@@ -1,19 +1,20 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
 
-@Entity('rooms', { schema: 'public' })
-export class Rooms {
-  @Column('uuid', {
-    primary: true,
+import { SubjectSections } from './SubjectSections.entity';
+
+@Entity('section_users', { schema: 'public' })
+export class SectionUsers {
+  @PrimaryColumn('uuid', {
     name: 'id',
     default: () => 'uuid_generate_v4()',
   })
   id: string;
 
-  @Column('character varying', { name: 'name', length: 100 })
-  name: string;
+  @Column('uuid', { name: 'section_id' })
+  sectionId: string;
 
-  @Column('text', { name: 'detail', nullable: true })
-  detail: string | null;
+  @Column('uuid', { name: 'user_id' })
+  userId: string;
 
   @Column('timestamp with time zone', {
     name: 'created_at',
@@ -38,4 +39,8 @@ export class Rooms {
 
   @Column('uuid', { name: 'deleted_by', nullable: true })
   deletedBy: string | null;
+
+  @ManyToOne(() => SubjectSections, (v) => v.users)
+  @JoinColumn({ name: 'section_id' })
+  section: SubjectSections;
 }

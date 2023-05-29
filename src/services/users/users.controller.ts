@@ -1,44 +1,28 @@
-import {
-  BadRequestException,
-  Body,
-  Controller,
-  HttpCode,
-  InternalServerErrorException,
-  Logger,
-  Post,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Get, Logger, Query, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { Roles } from 'src/decorators/roles.decorator';
-import { RolesGuard } from 'src/guards/roles.guard';
-import { EUserRole } from 'src/type/userRole.type';
+import { User } from 'src/decorators/user.decorator';
+import { Users } from 'src/models/entities/Users.entity';
+import { IUserData } from 'src/type/user.interface';
 
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { CreateUserDTO } from './dto/users.dto';
+import { FilterOptionCalendarDTO } from './dto/users.dto';
 import { UsersService } from './users.service';
 
 @ApiTags('users')
 @ApiBearerAuth()
-@UseGuards(JwtAuthGuard, RolesGuard)
-@Roles(EUserRole.ADMIN)
+@UseGuards(JwtAuthGuard)
 @Controller('users')
 export class UsersController {
   private logger = new Logger(UsersController.name);
   constructor(private readonly usersService: UsersService) {}
 
-  @Post()
-  @HttpCode(201)
-  async createUser(@Body() payload: CreateUserDTO): Promise<void> {
-    const user = await this.usersService.getUserByUserName(payload.username);
-    if (user) {
-      throw new BadRequestException('USERNAME_ALREADY_EXISTS');
-    }
+  @Get('profile')
+  async profile(@User() user: IUserData): Promise<Users> {
+    return this.usersService.getProfile(user.id);
+  }
 
-    try {
-      await this.usersService.create(payload);
-    } catch (error) {
-      this.logger.error(error);
-      throw new InternalServerErrorException();
-    }
+  @Get('calendars')
+  async calendars(@User() user: IUserData, @Query() filterOption: FilterOptionCalendarDTO): Promise<any> {
+    return this.usersService.getCalendars(user.id, filterOption);
   }
 }

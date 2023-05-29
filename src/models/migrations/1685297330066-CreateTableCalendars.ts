@@ -21,6 +21,22 @@ export class CreateTableCalendars1685297330066 implements MigrationInterface {
             length: '50',
           },
           {
+            name: 'code',
+            type: 'varchar',
+            length: '30',
+            isNullable: true,
+          },
+          {
+            name: 'title',
+            type: 'varchar',
+            length: '100',
+          },
+          {
+            name: 'description',
+            type: 'text',
+            isNullable: true,
+          },
+          {
             name: 'event_id',
             type: 'uuid',
             isNullable: true,
@@ -28,6 +44,29 @@ export class CreateTableCalendars1685297330066 implements MigrationInterface {
           {
             name: 'section_id',
             type: 'uuid',
+            isNullable: true,
+          },
+          {
+            name: 'is_online',
+            type: 'boolean',
+            default: false,
+          },
+          {
+            name: 'online_url',
+            type: 'varchar',
+            length: '200',
+            isNullable: true,
+          },
+          {
+            name: 'location',
+            type: 'varchar',
+            length: '200',
+            isNullable: true,
+          },
+          {
+            name: 'location_url',
+            type: 'varchar',
+            length: '200',
             isNullable: true,
           },
           {

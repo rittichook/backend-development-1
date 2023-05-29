@@ -1,4 +1,6 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+
+import { SubjectSections } from './SubjectSections.entity';
 
 @Entity('section_periods', { schema: 'public' })
 export class SectionPeriods {
@@ -30,7 +32,7 @@ export class SectionPeriods {
   @Column('time without time zone', { name: 'time_end' })
   timeEnd: string;
 
-  @Column('timestamp without time zone', {
+  @Column('timestamp with time zone', {
     name: 'created_at',
     default: () => 'now()',
   })
@@ -39,7 +41,7 @@ export class SectionPeriods {
   @Column('uuid', { name: 'created_by', nullable: true })
   createdBy: string | null;
 
-  @Column('timestamp without time zone', {
+  @Column('timestamp with time zone', {
     name: 'updated_at',
     default: () => 'now()',
   })
@@ -48,12 +50,13 @@ export class SectionPeriods {
   @Column('uuid', { name: 'updated_by', nullable: true })
   updatedBy: string | null;
 
-  @Column('timestamp without time zone', { name: 'deleted_at', nullable: true })
+  @Column('timestamp with time zone', { name: 'deleted_at', nullable: true })
   deletedAt: Date | null;
 
   @Column('uuid', { name: 'deleted_by', nullable: true })
   deletedBy: string | null;
 
-  @Column('integer', { name: 'date_of_month', nullable: true })
-  dateOfMonth: number | null;
+  @ManyToOne(() => SubjectSections, (v) => v.periods)
+  @JoinColumn({ name: 'section_subject_id' })
+  section: SubjectSections;
 }

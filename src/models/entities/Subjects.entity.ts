@@ -1,4 +1,6 @@
-import { Column, Entity, Index } from 'typeorm';
+import { Column, Entity, Index, OneToMany } from 'typeorm';
+
+import { SubjectSections } from './SubjectSections.entity';
 
 @Index('UQ_542cbba74dde3c82ab49c573109', ['code'], { unique: true })
 @Entity('subjects', { schema: 'public' })
@@ -16,7 +18,7 @@ export class Subjects {
   @Column('character varying', { name: 'name', length: 100 })
   name: string;
 
-  @Column('timestamp without time zone', {
+  @Column('timestamp with time zone', {
     name: 'created_at',
     default: () => 'now()',
   })
@@ -25,7 +27,7 @@ export class Subjects {
   @Column('uuid', { name: 'created_by', nullable: true })
   createdBy: string | null;
 
-  @Column('timestamp without time zone', {
+  @Column('timestamp with time zone', {
     name: 'updated_at',
     default: () => 'now()',
   })
@@ -34,9 +36,12 @@ export class Subjects {
   @Column('uuid', { name: 'updated_by', nullable: true })
   updatedBy: string | null;
 
-  @Column('timestamp without time zone', { name: 'deleted_at', nullable: true })
+  @Column('timestamp with time zone', { name: 'deleted_at', nullable: true })
   deletedAt: Date | null;
 
   @Column('uuid', { name: 'deleted_by', nullable: true })
   deletedBy: string | null;
+
+  @OneToMany(() => SubjectSections, (v) => v.subject)
+  subjectSections: SubjectSections[];
 }

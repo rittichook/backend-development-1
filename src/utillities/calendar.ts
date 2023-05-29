@@ -49,6 +49,5 @@ export const generateDateTimePeriods = (
   });
 
   allDateTime = allDateTime.sort((a, b) => a.diff(b));
-  allDateTime.forEach((v) => console.log(v.format('YYYY-MM-DD HH:mm:ss')));
   return _.chunk(allDateTime, 2);
 };
