@@ -33,9 +33,19 @@ export const generateDateTimePeriods = (
           allDateTime.push(dayjs.tz(currentDate).set('hour', timeEnd[0]).set('minute', timeEnd[1]));
         }
       } else if (type == EGenType.MONTH) {
-        if (currentDate.isBetween(dateStart, dateEnd, 'day', '[]') && currentDate.date() === period.dateOfMonth) {
+        // check endof month
+        if (currentDate.endOf('month').date() < period.dateOfMonth) {
+          allDateTime.push(dayjs.tz(currentDate.endOf('month')).set('hour', timeStart[0]).set('minute', timeStart[1]));
+          allDateTime.push(dayjs.tz(currentDate.endOf('month')).set('hour', timeEnd[0]).set('minute', timeEnd[1]));
+          currentDate = currentDate.endOf('month').add(1, 'day');
+          continue;
+        }
+
+        if (currentDate.date() === period.dateOfMonth) {
           allDateTime.push(dayjs.tz(currentDate).set('hour', timeStart[0]).set('minute', timeStart[1]));
           allDateTime.push(dayjs.tz(currentDate).set('hour', timeEnd[0]).set('minute', timeEnd[1]));
+          currentDate = currentDate.endOf('month').add(1, 'day');
+          continue;
         }
       }
 

@@ -18,6 +18,9 @@ export class Events {
   @Column('text', { name: 'description', nullable: true })
   description: string | null;
 
+  @Column('uuid', { name: 'owner' })
+  owner: string;
+
   @Column('date', { name: 'start_date' })
   startDate: string;
 
@@ -57,11 +60,11 @@ export class Events {
   })
   locationUrl: string | null;
 
-  @Column('uuid', { name: 'owner' })
-  owner: string;
-
   @Column('boolean', { name: 'status', default: () => 'true' })
   status: boolean;
+
+  @Column('boolean', { name: 'is_calendar', default: () => 'false' })
+  isCalendar: boolean;
 
   @Column('timestamp with time zone', {
     name: 'created_at',

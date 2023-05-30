@@ -8,6 +8,7 @@ import { UsersModule } from './services/users/users.module';
 import { CalendarModule } from './services/calendar/calendar.module';
 import { SectionsModule } from './services/sections/sections.module';
 import { MembersModule } from './services/members/members.module';
+import { EventsModule } from './services/events/events.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { MembersModule } from './services/members/members.module';
     CalendarModule,
     SectionsModule,
     MembersModule,
+    EventsModule,
   ],
   controllers: [],
   providers: [],
