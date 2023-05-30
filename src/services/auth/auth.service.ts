@@ -1,18 +1,19 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Users } from 'src/models/entities/Users.entity';
+import { IUserData } from 'src/type/user.interface';
 import { matchPassword } from 'src/utillities/password';
 
-import { UsersService } from '../users/users.service';
+import { MembersService } from '../members/members.service';
 import { ILoginResponse } from './type/auth.interface';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly userService: UsersService, private jwtService: JwtService) {}
+  constructor(private readonly memberService: MembersService, private jwtService: JwtService) {}
 
   async validateUser(username: string, password: string): Promise<Users> {
     // check username
-    const userData = await this.userService.getUserByUserName(username, true);
+    const userData = await this.memberService.getMemberByUserName(username, true);
     if (!userData) throw new UnauthorizedException();
 
     // check password
@@ -23,7 +24,16 @@ export class AuthService {
   }
 
   login(user: Users): ILoginResponse {
-    const payload = { username: user.username, sub: user.username, role: user.role };
+    const payload = {
+      id: user.id,
+      username: user.username,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      tel: user.tel,
+      avatar: user.avatar,
+      sub: user.username,
+      role: user.role,
+    } as IUserData;
     return {
       access_token: this.jwtService.sign(payload),
     } as ILoginResponse;

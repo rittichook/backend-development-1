@@ -22,7 +22,7 @@
     "migration:create": "npm run typeorm migration:create ./src/models/migrations/$npm_config_name",
     "migration:run": "npx typeorm-ts-node-commonjs migration:run -d ormconfig.ts",
     "migration:revert": "npx typeorm-ts-node-commonjs migration:revert -d ormconfig.ts",
-    "generator:entity": "typeorm-model-generator -h $npm_config_host -p 5432 -d $npm_config_db -u $npm_config_user -x $npm_config_password -e postgres -o ./entity -s public"
+    "generator:entity": "typeorm-model-generator -h database-1.cywqzmp3fvps.ap-southeast-1.rds.amazonaws.com -p 5432 -d blackcrop_app -u postgres -x rzeJq74WaaCwCu7XNv47 -e postgres -o ./entity -s public"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
@@ -33,11 +33,14 @@
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/swagger": "^6.3.0",
     "@nestjs/typeorm": "^9.0.1",
+    "@types/lodash": "^4.14.195",
     "bcrypt": "^5.1.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
+    "dayjs": "^1.11.7",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "lodash": "^4.17.21",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
