@@ -5,7 +5,7 @@ import { Users } from 'src/models/entities/Users.entity';
 import { IUserData } from 'src/type/user.interface';
 
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { FilterOptionCalendarDTO } from './dto/users.dto';
+import { FilterOptionCalendarDTO, MyCalendarResDTO } from './dto/users.dto';
 import { UsersService } from './users.service';
 
 @ApiTags('users')
@@ -22,7 +22,10 @@ export class UsersController {
   }
 
   @Get('calendars')
-  async calendars(@User() user: IUserData, @Query() filterOption: FilterOptionCalendarDTO): Promise<any> {
+  async calendars(
+    @User() user: IUserData,
+    @Query() filterOption: FilterOptionCalendarDTO,
+  ): Promise<MyCalendarResDTO[]> {
     return this.usersService.getCalendars(user.id, filterOption);
   }
 }

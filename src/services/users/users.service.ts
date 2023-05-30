@@ -6,7 +6,7 @@ import { Users } from 'src/models/entities/Users.entity';
 import { ECalendarFilterOption } from 'src/type/calendar.type';
 import { EntityManager } from 'typeorm';
 
-import { FilterOptionCalendarDTO } from './dto/users.dto';
+import { FilterOptionCalendarDTO, MyCalendarResDTO } from './dto/users.dto';
 
 @Injectable()
 export class UsersService {
@@ -28,7 +28,7 @@ export class UsersService {
     });
   }
 
-  async getCalendars(uid: string, filterOption: FilterOptionCalendarDTO): Promise<any> {
+  async getCalendars(uid: string, filterOption: FilterOptionCalendarDTO): Promise<MyCalendarResDTO[]> {
     let dateStart: string = null;
     let dateEnd: string = null;
     const now = dayjs(filterOption.date);
@@ -60,13 +60,40 @@ export class UsersService {
       'calendar.owner',
       'calendar.startDate',
       'calendar.endDate',
+      'calendar.status',
     ]);
     query.innerJoin('main.calendar', 'calendar');
+
+    query.addSelect(['owner.firstName', 'owner.lastName']);
+    query.innerJoin('calendar.ownerData', 'owner');
+
+    query.addSelect('calendarRoom.roomId');
+    query.innerJoin('calendar.calendarRoom', 'calendarRoom');
+    query.addSelect('room.name');
+    query.innerJoin('calendarRoom.room', 'room');
 
     query.where('main.userId = :uid', { uid });
     query.andWhere('calendar.startDate BETWEEN :dateStart AND :dateEnd', { dateStart, dateEnd });
 
     const results = await query.getMany();
-    return results;
+    return results.map((v): MyCalendarResDTO => {
+      return {
+        id: v.calendar.id,
+        type: v.calendar.type,
+        code: v.calendar.code,
+        title: v.calendar.title,
+        description: v.calendar.description,
+        isOnline: v.calendar.isOnline,
+        onlineUrl: v.calendar.onlineUrl,
+        location: v.calendar.calendarRoom.roomId ? v.calendar.calendarRoom.room.name : v.calendar.location,
+        locationUrl: v.calendar.locationUrl,
+        startTime: v.calendar.startDate,
+        endTime: v.calendar.endDate,
+        owner: [v.calendar.ownerData.firstName || null, v.calendar.ownerData.lastName || null]
+          .filter((v2) => v2)
+          .join(' '),
+        status: v.calendar.status,
+      };
+    });
   }
 }

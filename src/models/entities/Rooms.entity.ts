@@ -1,4 +1,6 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
+
+import { CalendarRoom } from './CalendarRoom.entity';
 
 @Entity('rooms', { schema: 'public' })
 export class Rooms {
@@ -38,4 +40,7 @@ export class Rooms {
 
   @Column('uuid', { name: 'deleted_by', nullable: true })
   deletedBy: string | null;
+
+  @OneToMany(() => CalendarRoom, (v) => v.room)
+  calendarRooms: CalendarRoom[];
 }

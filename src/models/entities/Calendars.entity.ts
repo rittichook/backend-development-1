@@ -2,6 +2,7 @@ import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm';
 
 import { CalendarRoom } from './CalendarRoom.entity';
 import { CalendarUsers } from './CalendarUsers.entity';
+import { Users } from './Users.entity';
 
 @Entity('calendars', { schema: 'public' })
 export class Calendars {
@@ -91,9 +92,13 @@ export class Calendars {
   deletedBy: string | null;
 
   @OneToOne(() => CalendarRoom)
-  @JoinColumn({ name: 'id' })
+  @JoinColumn({ name: 'id', referencedColumnName: 'calendarId' })
   calendarRoom: CalendarRoom;
 
   @OneToMany(() => CalendarUsers, (v) => v.calendarId)
   inviteUsers: CalendarUsers[];
+
+  @OneToOne(() => Users, (v) => v.id)
+  @JoinColumn({ name: 'owner' })
+  ownerData: Users;
 }

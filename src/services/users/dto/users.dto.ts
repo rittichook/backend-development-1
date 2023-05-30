@@ -11,3 +11,19 @@ export class FilterOptionCalendarDTO {
   @IsEnum(ECalendarFilterOption)
   type: ECalendarFilterOption;
 }
+
+export class MyCalendarResDTO {
+  id: string;
+  type: string;
+  code: string;
+  title: string;
+  description: string;
+  isOnline: boolean;
+  onlineUrl: string;
+  location: string;
+  locationUrl: string;
+  startTime: Date;
+  endTime: Date;
+  owner: string;
+  status: boolean;
+}
