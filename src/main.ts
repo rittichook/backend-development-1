@@ -16,8 +16,7 @@ async function bootstrap(): Promise<void> {
   app.enableCors();
 
   const config: ConfigService = app.get<ConfigService>(ConfigService);
-  await app.listen(process.env.PORT, '0.0.0.0');
-//   const PORT: number = config.get('PORT') || 3000;
+  const PORT: number = config.get('PORT') || 3000;
   const logger = new Logger('Application');
 
   // Response pattern
